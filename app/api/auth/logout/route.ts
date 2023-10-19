@@ -12,7 +12,7 @@ export async function GET() {
       expires: new Date(0),
     });
     return response;
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

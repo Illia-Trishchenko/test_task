@@ -1,21 +1,19 @@
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
-import User from "@/models/userModel";
-import dbConnect from "@/lib/dbConnect";
+import { User } from "@/models/userModel";
+import { dbConnect } from "@/lib/dbConnect";
 
 export async function GET(request: NextRequest) {
   try {
     await dbConnect();
     const userId = await getDataFromToken(request);
     const user = await User.findOne({ _id: userId }).select("-password");
+
     return NextResponse.json({
       message: "User found",
       data: user,
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error, message: error.message },
-      { status: 400 }
-    );
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 400 });
   }
 }
