@@ -14,6 +14,9 @@ export async function GET(request: NextRequest) {
       data: user,
     });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 400 });
+    return NextResponse.json(
+      { error, message: "Oops! Something went wrong." },
+      { status: 400 }
+    );
   }
 }
